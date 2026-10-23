@@ -246,6 +246,48 @@ span.fw:hover{border-color:transparent}
 .fy{font:700 24px/1 var(--f-hand);color:var(--ink)}
 .fy.rv{color:var(--red)}
 
+/* вхід, синхронізація, вчитель */
+.who{display:flex;align-items:center;gap:8px 10px;flex-wrap:wrap;font-size:13px;color:var(--muted)}
+.who b{color:var(--text);font-weight:600}
+.sync{font-size:12px;padding:2px 9px;border-radius:999px;background:var(--chip);color:var(--muted);white-space:nowrap}
+.sync.ok{color:var(--green);background:var(--green-bg)}
+.sync.err{color:var(--red);background:var(--red-bg)}
+.boot{text-align:center;color:var(--muted);padding:64px 0}
+.login{max-width:380px;margin:32px auto 0;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:26px 22px}
+.login h1{font:700 22px/1.2 var(--f-display);margin:0 0 6px;letter-spacing:-.01em}
+.login > form > p{margin:0 0 20px;color:var(--muted);font-size:14px}
+.field{display:grid;gap:6px;margin-bottom:14px}
+.field label{font-size:13px;font-weight:600}
+.field input{font:500 16px var(--f-body);padding:10px 12px;border-radius:8px;border:1.5px solid var(--line);background:var(--paper);color:var(--text);width:100%}
+.field input:focus{outline:none;border-color:var(--ink);box-shadow:0 0 0 3px var(--ink-bg)}
+.login .btn.pri{width:100%;justify-content:center;padding:11px;margin-top:4px}
+.login-err{color:var(--red);font-size:14px;margin:0 0 12px}
+.tch-h{display:flex;justify-content:space-between;align-items:baseline;gap:8px 12px;flex-wrap:wrap;margin-bottom:6px}
+.tch-h h1{font:700 clamp(22px,3.4vw,28px)/1.2 var(--f-display);margin:0;letter-spacing:-.015em}
+.tch-sub{color:var(--muted);font-size:14px;margin:0 0 20px;max-width:68ch}
+.st-list{display:grid;gap:12px}
+.st{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;display:grid;gap:12px}
+.st-top{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.st-name{font:700 18px/1.2 var(--f-display)}
+.st-meta{font-size:13px;color:var(--muted);margin-top:3px}
+.st-prog{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.st-prog .bar{flex:1 1 auto;width:auto;max-width:280px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.gchip{display:inline-flex;align-items:center;gap:6px;font-size:12px;padding:3px 8px;border-radius:7px;background:var(--chip);color:var(--muted);font-variant-numeric:tabular-nums}
+.gchip b{font:700 11px var(--f-display);color:var(--text)}
+.gchip.done{background:var(--green-bg);color:var(--green)}
+.gchip.done b{color:var(--green)}
+.gchip .g{font:700 16px/1 var(--f-hand);color:var(--red)}
+.banner{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center;justify-content:space-between;background:var(--ink-bg);border:1px solid var(--ink);border-radius:12px;padding:12px 14px;margin-bottom:22px}
+.banner b{font-weight:700}
+.written{margin:0 0 30px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px}
+.written h2{font:700 16px var(--f-display);margin:0 0 12px}
+.written dl{margin:0;display:grid;gap:14px}
+.written dt{font-size:13px;color:var(--muted)}
+.written dd{margin:2px 0 0;font:600 22px/1.3 var(--f-hand);color:var(--ink);white-space:pre-wrap;overflow-wrap:anywhere}
+.empty-note{color:var(--muted);font-size:14px}
+.sheet[inert] .ex,.sheet[inert] .reading{cursor:default}
+
 /* рух */
 @keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-5px)}40%{transform:translateX(5px)}60%{transform:translateX(-3px)}80%{transform:translateX(3px)}}
 @keyframes pop{0%{transform:scale(.5);opacity:0}100%{transform:scale(1);opacity:1}}
@@ -270,28 +312,45 @@ span.fw:hover{border-color:transparent}
   .words{gap:12px 16px}
 }
 </style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.3/dist/umd/supabase.js"></script>
+<script src="config.js"></script>
 </head>
 <body>
 
 <header class="top">
   <div class="top-in">
     <div class="top-row">
-      <p class="brand">Зошит з англійської<small>Вправи з перевіркою: читання, слова, граматика</small></p>
-      <div class="prog" aria-live="polite"><span>Виконано <b id="pd">0</b> з <span id="pt">0</span></span><span class="bar"><i id="pb"></i></span></div>
-      <button class="reset" id="rs" type="button">Почати заново</button>
+      <p class="brand">Зошит з англійської<small id="brandSub">Вправи з перевіркою: читання, слова, граматика</small></p>
+      <div class="prog" id="progBox" aria-live="polite" hidden><span>Виконано <b id="pd">0</b> з <span id="pt">0</span></span><span class="bar"><i id="pb"></i></span></div>
+      <button class="reset" id="rs" type="button" hidden>Почати заново</button>
+      <div class="who" id="who" hidden><span class="sync" id="sync" hidden></span><b id="whoName"></b><button class="reset" id="logout" type="button">Вийти</button></div>
     </div>
     <div class="confirm" id="cf" hidden>
       <span>Стерти всі відповіді й почати спочатку?</span>
       <button class="btn danger" id="cfy" type="button">Стерти</button>
       <button class="btn" id="cfn" type="button">Скасувати</button>
     </div>
-    <nav class="nav" id="nav" aria-label="Розділи"></nav>
+    <nav class="nav" id="nav" aria-label="Розділи" hidden></nav>
   </div>
 </header>
 
 <main class="wrap">
-  <div class="sheet" id="sheet">
-    <p class="intro">Відповіді перевіряються одразу: <b>зелене</b> — правильно, <b>червоне</b> — помилка, можна пробувати ще. У полі для відповіді натисни <b>Enter</b> або перейди до наступного поля. Коли розділ виконано, біля назви з’являється оцінка за 12-бальною шкалою. Прогрес зберігається в цьому браузері.</p>
+  <p class="boot" id="boot">Завантаження…</p>
+  <section class="login" id="login" hidden>
+    <form id="loginForm" novalidate>
+      <h1>Вхід до зошита</h1>
+      <p>Логін і пароль тобі дає вчитель.</p>
+      <div class="field"><label for="lg">Логін</label><input id="lg" name="username" autocomplete="username" autocapitalize="off" autocorrect="off" spellcheck="false"></div>
+      <div class="field"><label for="pw">Пароль</label><input id="pw" name="password" type="password" autocomplete="current-password"></div>
+      <p class="login-err" id="lerr" role="alert" hidden></p>
+      <button class="btn pri" id="lbtn" type="submit">Увійти</button>
+    </form>
+  </section>
+  <section id="tch" hidden></section>
+  <div class="banner" id="viewBanner" hidden></div>
+  <section class="written" id="written" hidden></section>
+  <div class="sheet" id="sheet" hidden>
+    <p class="intro">Відповіді перевіряються одразу: <b>зелене</b> — правильно, <b>червоне</b> — помилка, можна пробувати ще. У полі для відповіді натисни <b>Enter</b> або перейди до наступного поля. Коли розділ виконано, біля назви з’являється оцінка за 12-бальною шкалою. Відповіді зберігаються у твоєму акаунті, тож продовжити можна з будь-якого пристрою.</p>
   </div>
 </main>
 
@@ -597,9 +656,16 @@ function speak(text, el, onend){
 /* ---------- стан ---------- */
 const LS = 'zoshyt-eng-v1';
 let S = {};
-try { const raw = localStorage.getItem(LS); if (raw) S = JSON.parse(raw) || {}; } catch(e){ S = {}; }
+let MODE = 'boot';   /* boot | login | student | teacher | view */
+let USER = null;
 let saveT = null;
-function save(){ clearTimeout(saveT); saveT = setTimeout(() => { try { localStorage.setItem(LS, JSON.stringify(S)); } catch(e){} }, 120); }
+const lsKey = () => LS + ':' + (USER ? USER.id : 'anon');
+function cacheLocal(){ try { localStorage.setItem(lsKey(), JSON.stringify(S)); } catch(e){} }
+function save(){
+  if (MODE !== 'student') return;
+  clearTimeout(saveT); saveT = setTimeout(cacheLocal, 120);
+  Sync.schedule();
+}
 const st = k => S[k] || (S[k] = {});
 const TR = {};
 const tr = k => TR[k] || (TR[k] = {});
@@ -1140,8 +1206,9 @@ const cf = document.getElementById('cf');
 document.getElementById('rs').addEventListener('click', () => { cf.hidden = !cf.hidden; });
 document.getElementById('cfn').addEventListener('click', () => { cf.hidden = true; });
 document.getElementById('cfy').addEventListener('click', () => {
+  if (MODE !== 'student') return;
   S = {}; Object.keys(TR).forEach(key => delete TR[key]);
-  try { localStorage.removeItem(LS); } catch(e){}
+  save();
   cf.hidden = true; rerenderAll(); window.scrollTo({top:0, behavior:RM ? 'auto' : 'smooth'});
 });
 
@@ -1158,6 +1225,232 @@ try {
   }, {rootMargin:'-150px 0px -60% 0px'});
   SEC.forEach(s => io.observe(document.getElementById(s.id)));
 } catch(e){}
+
+/* ---------- акаунти й база (Supabase) ---------- */
+const CFG = window.ZOSHYT_CONFIG || {};
+const LOGIN_DOMAIN = CFG.domain || 'zoshyt.local';
+let sb = null;
+try { if (window.supabase && CFG.url && CFG.key) sb = window.supabase.createClient(CFG.url, CFG.key); } catch(e){ sb = null; }
+let TOKEN = null;
+
+const $ = id => document.getElementById(id);
+const UI = {
+  boot:$('boot'), login:$('login'), tch:$('tch'), banner:$('viewBanner'), written:$('written'), sheet:$('sheet'),
+  prog:$('progBox'), nav:$('nav'), rs:$('rs'), who:$('who'), whoName:$('whoName'), sync:$('sync'), sub:$('brandSub'), cf:$('cf')
+};
+const BRAND_SUB = UI.sub.textContent;
+function show(parts){
+  ['boot','login','tch','banner','written','sheet','prog','nav','rs','who','sync'].forEach(n => { UI[n].hidden = !parts.includes(n); });
+  UI.cf.hidden = true;
+}
+function loginName(email){ email = String(email || ''); const at = email.indexOf('@'); return at > 0 && email.slice(at + 1) === LOGIN_DOMAIN ? email.slice(0, at) : email; }
+
+function setStatus(kind){
+  const map = { saving:['Зберігаю…',''], ok:['Збережено','ok'], err:['Не збережено, спробую ще','err'], off:['Немає зв’язку з базою','err'] };
+  const m = map[kind] || map.ok;
+  UI.sync.textContent = m[0]; UI.sync.className = 'sync' + (m[1] ? ' ' + m[1] : '');
+}
+
+const Sync = {
+  t:null, busy:false, dirty:false, lastAt:null,
+  schedule(){ if (MODE !== 'student') return; this.dirty = true; setStatus('saving'); clearTimeout(this.t); this.t = setTimeout(() => this.push(), 1200); },
+  async push(){
+    if (!sb || !USER || MODE !== 'student' || !this.dirty) return;
+    if (this.busy){ clearTimeout(this.t); this.t = setTimeout(() => this.push(), 800); return; }
+    this.busy = true; this.dirty = false;
+    const at = new Date().toISOString();
+    let error = null;
+    try { ({ error } = await sb.from('progress').upsert({ user_id: USER.id, state: S, updated_at: at })); } catch(e){ error = e; }
+    this.busy = false;
+    if (error){ this.dirty = true; setStatus('err'); clearTimeout(this.t); this.t = setTimeout(() => this.push(), 15000); return; }
+    this.lastAt = at;
+    if (!this.dirty) setStatus('ok');
+  },
+  async flush(){ clearTimeout(this.t); if (this.dirty) await this.push(); }
+};
+function beaconSave(){
+  if (MODE !== 'student' || !Sync.dirty || !TOKEN || !USER || !CFG.url) return;
+  const at = new Date().toISOString();
+  try {
+    fetch(CFG.url + '/rest/v1/progress?on_conflict=user_id', { method:'POST', keepalive:true,
+      headers:{ apikey:CFG.key, Authorization:'Bearer ' + TOKEN, 'Content-Type':'application/json', Prefer:'resolution=merge-duplicates,return=minimal' },
+      body: JSON.stringify({ user_id: USER.id, state: S, updated_at: at }) });
+    Sync.dirty = false; Sync.lastAt = at; clearTimeout(Sync.t);
+  } catch(e){}
+}
+async function refreshFromRemote(){
+  if (MODE !== 'student' || !sb || !USER || Sync.dirty || Sync.busy) return;
+  try {
+    const { data, error } = await sb.from('progress').select('state,updated_at').eq('user_id', USER.id).maybeSingle();
+    if (error || !data || Sync.dirty || MODE !== 'student') return;
+    if (!Sync.lastAt || new Date(data.updated_at) > new Date(Sync.lastAt)){
+      S = data.state || {}; Sync.lastAt = data.updated_at; cacheLocal(); rerenderAll(); setStatus('ok');
+    }
+  } catch(e){}
+}
+addEventListener('pagehide', beaconSave);
+document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'hidden') beaconSave(); else refreshFromRemote(); });
+addEventListener('online', () => { if (Sync.dirty) Sync.push(); });
+
+/* ---------- вхід ---------- */
+const form = $('loginForm'), lg = $('lg'), pw = $('pw'), lerr = $('lerr'), lbtn = $('lbtn');
+function showLogin(msg){
+  MODE = 'login'; USER = null; S = {};
+  UI.sub.textContent = BRAND_SUB;
+  show(['login']);
+  lerr.hidden = !msg; lerr.textContent = msg || '';
+  lbtn.disabled = !sb;
+  setTimeout(() => { try { (lg.value ? pw : lg).focus(); } catch(e){} }, 0);
+}
+form.addEventListener('submit', async e => {
+  e.preventDefault();
+  if (!sb) return;
+  const login = lg.value.trim().toLowerCase(), pass = pw.value;
+  if (!login || !pass){ lerr.textContent = 'Введи логін і пароль.'; lerr.hidden = false; return; }
+  const email = login.includes('@') ? login : login + '@' + LOGIN_DOMAIN;
+  lbtn.disabled = true; lbtn.textContent = 'Входжу…'; lerr.hidden = true;
+  let res;
+  try { res = await sb.auth.signInWithPassword({ email, password: pass }); } catch(err){ res = { error: err }; }
+  lbtn.disabled = false; lbtn.textContent = 'Увійти';
+  if (res.error){
+    const bad = res.error.code === 'invalid_credentials' || /invalid login/i.test(res.error.message || '');
+    lerr.textContent = bad ? 'Неправильний логін або пароль.' : 'Немає зв’язку з базою. Спробуй ще раз за хвилину.';
+    lerr.hidden = false; return;
+  }
+  pw.value = '';
+  TOKEN = res.data.session ? res.data.session.access_token : TOKEN;
+  await enter(res.data.user);
+});
+$('logout').addEventListener('click', async () => {
+  if (MODE === 'student'){ await Sync.flush(); }
+  MODE = 'login';
+  try { await sb.auth.signOut({ scope:'local' }); } catch(e){}
+  UI.sheet.inert = false;
+  S = {}; Object.keys(TR).forEach(k => delete TR[k]); rerenderAll();
+  showLogin();
+});
+
+async function enter(user){
+  USER = user;
+  UI.whoName.textContent = loginName(user.email);
+  let teacher = false;
+  try { const { data, error } = await sb.rpc('is_teacher'); if (!error) teacher = data === true; } catch(e){}
+  if (teacher) return enterTeacher();
+  return enterStudent();
+}
+
+async function enterStudent(){
+  MODE = 'student';
+  let local = null, legacy = null, remote = null, remoteOk = false;
+  try { const r = localStorage.getItem(lsKey()); if (r) local = JSON.parse(r); } catch(e){}
+  try { const r = localStorage.getItem(LS); if (r) legacy = JSON.parse(r); } catch(e){}
+  try {
+    const { data, error } = await sb.from('progress').select('state,updated_at').eq('user_id', USER.id).maybeSingle();
+    if (!error){ remoteOk = true; remote = data; }
+  } catch(e){}
+  if (remote && remote.state){ S = remote.state; Sync.lastAt = remote.updated_at; }
+  else S = local || legacy || {};
+  cacheLocal();
+  if (legacy && !remote){ try { localStorage.removeItem(LS); } catch(e){} }
+  Object.keys(TR).forEach(k => delete TR[k]);
+  UI.sub.textContent = BRAND_SUB;
+  UI.sheet.inert = false;
+  show(['sheet','prog','nav','rs','who','sync']);
+  rerenderAll();
+  if (remoteOk && !remote){ Sync.dirty = true; Sync.push(); setStatus('saving'); }
+  else setStatus(remoteOk ? 'ok' : 'off');
+}
+
+/* ---------- сторінка вчителя ---------- */
+let ROSTER = [];
+const fmtWhen = d => { try { return new Intl.DateTimeFormat('uk-UA', { day:'numeric', month:'long', hour:'2-digit', minute:'2-digit' }).format(new Date(d)); } catch(e){ return ''; } };
+function withState(state, fn){ const keep = S; S = state || {}; try { return fn(); } finally { S = keep; } }
+
+function enterTeacher(){
+  MODE = 'teacher';
+  UI.sub.textContent = 'Сторінка вчителя';
+  UI.sheet.inert = false;
+  show(['tch','who']);
+  renderRoster(true);
+  loadRoster();
+}
+async function loadRoster(){
+  let data = null, error = null;
+  try { ({ data, error } = await sb.rpc('teacher_students')); } catch(e){ error = e; }
+  if (error){ renderRoster(false, 'Не вдалося завантажити учнів. Перевір інтернет і натисни «Оновити».'); return; }
+  ROSTER = (data || []).slice().sort((a, b) => new Date(b.updated_at || b.last_sign_in_at || 0) - new Date(a.updated_at || a.last_sign_in_at || 0));
+  renderRoster(false);
+}
+function renderRoster(loading, errMsg){
+  const head = h('div',{class:'tch-h'}, h('h1',{}, 'Учні'), h('button',{class:'btn', type:'button', onclick:() => { renderRoster(true); loadRoster(); }}, 'Оновити'));
+  const sub = h('p',{class:'tch-sub'}, 'Прогрес і оцінки оновлюються, коли учень виконує вправи. Натисни «Відкрити зошит», щоб побачити всі відповіді учня.');
+  const list = h('div',{class:'st-list'});
+  if (loading) list.append(h('p',{class:'empty-note'}, 'Завантажую…'));
+  else if (errMsg) list.append(h('p',{class:'login-err'}, errMsg));
+  else if (!ROSTER.length) list.append(h('p',{class:'empty-note'}, 'Учнів ще немає. Додай їх у Supabase: Authentication → Users → Add user.'));
+  else ROSTER.forEach(r => list.append(rosterCard(r)));
+  UI.tch.replaceChildren(head, sub, list);
+}
+function rosterCard(r){
+  const name = loginName(r.email);
+  const stats = withState(r.state, () => SEC.map(sec => secStats(sec)));
+  const tot = stats.reduce((a,u) => a + u.tot, 0), done = stats.reduce((a,u) => a + u.done, 0);
+  const meta = r.updated_at ? 'Остання відповідь: ' + fmtWhen(r.updated_at) : (r.last_sign_in_at ? 'Входив: ' + fmtWhen(r.last_sign_in_at) + ', ще не відповідав' : 'Ще не входив');
+  const bar = h('span',{class:'bar'}, h('i',{style:'width:' + (tot ? done / tot * 100 : 0) + '%'}));
+  const chips = h('div',{class:'chips'});
+  SEC.forEach((sec,si) => {
+    const u = stats[si], complete = u.tot > 0 && u.done === u.tot;
+    chips.append(h('span',{class:'gchip' + (complete ? ' done' : ''), title:sec.title},
+      h('b',{}, String(si + 1)), sec.short,
+      complete ? h('span',{class:'g'}, String(grade(u))) : (u.done ? ` ${u.done}/${u.tot}` : '')));
+  });
+  return h('article',{class:'st'},
+    h('div',{class:'st-top'},
+      h('div',{}, h('div',{class:'st-name'}, name), h('div',{class:'st-meta'}, meta)),
+      r.state ? h('button',{class:'btn pri', type:'button', onclick:() => openStudent(r)}, 'Відкрити зошит') : null),
+    h('div',{class:'st-prog'}, bar, `${done} з ${tot}`),
+    chips);
+}
+function openStudent(r){
+  MODE = 'view';
+  const name = loginName(r.email);
+  S = JSON.parse(JSON.stringify(r.state || {}));
+  Object.keys(TR).forEach(k => delete TR[k]);
+  rerenderAll();
+  UI.sheet.inert = true;
+  UI.banner.replaceChildren(
+    h('span',{}, 'Зошит учня ', h('b',{}, name), ' · лише перегляд'),
+    h('button',{class:'btn', type:'button', onclick:backToRoster}, '← До списку учнів'));
+  const dl = h('dl');
+  SEC.forEach(sec => sec.ex.forEach(ex => {
+    if (ex.t !== 'write') return;
+    const txt = ((S[ex.k] || {}).text || '').trim();
+    dl.append(h('div',{}, h('dt',{}, sec.title + ' · ' + ex.title + ': ' + ex.ins), h('dd',{}, txt || '—')));
+  }));
+  UI.written.replaceChildren(h('h2',{}, 'Письмові відповіді'), dl);
+  show(['banner','written','sheet','prog','nav','who']);
+  window.scrollTo({ top:0 });
+}
+function backToRoster(){
+  S = {}; Object.keys(TR).forEach(k => delete TR[k]);
+  UI.sheet.inert = false;
+  rerenderAll();
+  enterTeacher();
+}
+
+/* ---------- старт ---------- */
+async function initAuth(){
+  if (!sb){ showLogin('Не вдалося підключитися до бази. Перевір інтернет і онови сторінку.'); return; }
+  sb.auth.onAuthStateChange((ev, session) => {
+    TOKEN = session ? session.access_token : null;
+    if (ev === 'SIGNED_OUT' && MODE !== 'login' && MODE !== 'boot') setTimeout(() => showLogin('Сесія завершилась. Увійди ще раз.'), 0);
+  });
+  let session = null;
+  try { const r = await sb.auth.getSession(); session = r.data && r.data.session; } catch(e){}
+  if (session){ TOKEN = session.access_token; await enter(session.user); }
+  else showLogin();
+}
+initAuth();
 </script>
 </body>
 </html>
