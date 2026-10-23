@@ -264,6 +264,7 @@ span.fw:hover{border-color:transparent}
 .login-err{color:var(--red);font-size:14px;margin:0 0 12px}
 .tch-h{display:flex;justify-content:space-between;align-items:baseline;gap:8px 12px;flex-wrap:wrap;margin-bottom:6px}
 .tch-h h1{font:700 clamp(22px,3.4vw,28px)/1.2 var(--f-display);margin:0;letter-spacing:-.015em}
+.tch-actions{display:flex;flex-wrap:wrap;gap:8px}
 .tch-sub{color:var(--muted);font-size:14px;margin:0 0 20px;max-width:68ch}
 .st-list{display:grid;gap:12px}
 .st{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;display:grid;gap:12px}
@@ -1242,6 +1243,7 @@ const BRAND_SUB = UI.sub.textContent;
 function show(parts){
   ['boot','login','tch','banner','written','sheet','prog','nav','rs','who','sync'].forEach(n => { UI[n].hidden = !parts.includes(n); });
   UI.cf.hidden = true;
+  const intro = UI.sheet.querySelector('.intro'); if (intro) intro.hidden = MODE !== 'student';
 }
 function loginName(email){ email = String(email || ''); const at = email.indexOf('@'); return at > 0 && email.slice(at + 1) === LOGIN_DOMAIN ? email.slice(0, at) : email; }
 
@@ -1382,7 +1384,10 @@ async function loadRoster(){
   renderRoster(false);
 }
 function renderRoster(loading, errMsg){
-  const head = h('div',{class:'tch-h'}, h('h1',{}, 'Учні'), h('button',{class:'btn', type:'button', onclick:() => { renderRoster(true); loadRoster(); }}, 'Оновити'));
+  const head = h('div',{class:'tch-h'}, h('h1',{}, 'Учні'),
+    h('div',{class:'tch-actions'},
+      h('button',{class:'btn pri', type:'button', onclick:openDemo}, 'Відкрити завдання для показу'),
+      h('button',{class:'btn', type:'button', onclick:() => { renderRoster(true); loadRoster(); }}, 'Оновити')));
   const sub = h('p',{class:'tch-sub'}, 'Прогрес і оцінки оновлюються, коли учень виконує вправи. Натисни «Відкрити зошит», щоб побачити всі відповіді учня.');
   const list = h('div',{class:'st-list'});
   if (loading) list.append(h('p',{class:'empty-note'}, 'Завантажую…'));
@@ -1429,6 +1434,19 @@ function openStudent(r){
   }));
   UI.written.replaceChildren(h('h2',{}, 'Письмові відповіді'), dl);
   show(['banner','written','sheet','prog','nav','who']);
+  window.scrollTo({ top:0 });
+}
+function openDemo(){
+  MODE = 'demo';
+  S = {}; Object.keys(TR).forEach(k => delete TR[k]);
+  rerenderAll();
+  UI.sheet.inert = false;
+  UI.banner.replaceChildren(
+    h('span',{}, h('b',{}, 'Режим показу'), ' · можна відповідати, але нічого не зберігається'),
+    h('span',{class:'tch-actions'},
+      h('button',{class:'btn', type:'button', onclick:() => { S = {}; Object.keys(TR).forEach(k => delete TR[k]); rerenderAll(); }}, 'Очистити відповіді'),
+      h('button',{class:'btn', type:'button', onclick:backToRoster}, '← До списку учнів')));
+  show(['banner','sheet','prog','nav','who']);
   window.scrollTo({ top:0 });
 }
 function backToRoster(){
