@@ -289,6 +289,60 @@ span.fw:hover{border-color:transparent}
 .empty-note{color:var(--muted);font-size:14px}
 .sheet[inert] .ex,.sheet[inert] .reading{cursor:default}
 
+/* база знань */
+:root{--hl:#fde68a}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--hl:#5c4813}}
+:root[data-theme="dark"]{--hl:#5c4813}
+.views{display:inline-flex;gap:2px;padding:2px;border:1.5px solid var(--line);border-radius:9px;background:var(--card)}
+.views button{font:600 13px var(--f-body);border:none;background:transparent;color:var(--muted);padding:5px 12px;border-radius:7px;cursor:pointer;white-space:nowrap}
+.views button:hover{color:var(--text)}
+.views button[aria-pressed="true"]{background:var(--ink);color:var(--on-ink)}
+.kb-h h1{font:700 clamp(22px,3.4vw,28px)/1.2 var(--f-display);margin:0 0 6px;letter-spacing:-.015em}
+.kb-h p{margin:0 0 18px;color:var(--muted);font-size:15px;max-width:68ch}
+.kb-ctl{display:grid;gap:14px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-bottom:26px}
+.kb-row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.kb-row input[type=search]{flex:1 1 220px;min-width:0;font:500 16px var(--f-body);padding:9px 12px;border-radius:8px;border:1.5px solid var(--line);background:var(--paper);color:var(--text)}
+.kb-row input[type=search]:focus{outline:none;border-color:var(--ink);box-shadow:0 0 0 3px var(--ink-bg)}
+.kb-sort{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--muted)}
+.kb-sort select{font:500 14px var(--f-body);padding:8px 10px;border-radius:8px;border:1.5px solid var(--line);background:var(--paper);color:var(--text)}
+.kb-topics{display:grid;gap:8px}
+.kb-grp{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.kb-glab{font:600 11px/1.3 var(--f-display);letter-spacing:.07em;text-transform:uppercase;color:var(--ink);background:none;border:none;padding:4px 6px 4px 0;cursor:pointer;min-width:10.5em;text-align:left}
+.kb-glab[aria-pressed="true"]{text-decoration:underline;text-underline-offset:4px}
+.kb-kinds{display:flex;flex-wrap:wrap;gap:6px;padding-top:12px;border-top:1px dashed var(--line)}
+.fchip{font:500 13px var(--f-body);padding:5px 11px;border-radius:999px;border:1.5px solid var(--line);background:var(--card);color:var(--text);cursor:pointer;white-space:nowrap}
+.fchip:hover{border-color:var(--ink)}
+.fchip[aria-pressed="true"]{background:var(--ink-bg);border-color:var(--ink);color:var(--ink)}
+.fchip .n{font:700 10px var(--f-display);color:var(--muted);margin-right:5px}
+.kb-meta{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums;min-height:26px}
+.kb-sec{margin-bottom:36px}
+.kb-sec-h{display:flex;align-items:baseline;justify-content:space-between;gap:6px 12px;flex-wrap:wrap;margin-bottom:12px}
+.kb-sec-h h2{font:700 clamp(18px,2.8vw,22px)/1.2 var(--f-display);margin:0;letter-spacing:-.01em}
+.kb-sec-h h2 .n{color:var(--margin);margin-right:10px}
+.kb-cards{display:grid;gap:12px}
+.kb-card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;display:grid;gap:10px;min-width:0}
+.kb-card-h{display:flex;align-items:baseline;justify-content:space-between;gap:6px 12px;flex-wrap:wrap}
+.kb-card h3{font:700 17px/1.3 var(--f-body);margin:0}
+.kb-card p{margin:0;max-width:68ch}
+.kb-note{font-size:14px;color:var(--muted)}
+.kb-note b{color:var(--text)}
+.kb-tags{display:flex;gap:6px;flex-wrap:wrap}
+.tag{font:600 11px/1.6 var(--f-body);padding:1px 8px;border-radius:6px;background:var(--chip);color:var(--muted);white-space:nowrap}
+.tag.k-rule{background:var(--ink-bg);color:var(--ink)}
+.tag.k-words{background:var(--green-bg);color:var(--green)}
+.tag.k-phrases{background:var(--red-bg);color:var(--red)}
+.kb-tw{overflow-x:auto;margin:0 -4px}
+.kb-t{border-collapse:collapse;width:100%;font-size:15px;line-height:1.4}
+.kb-t th{font:600 10.5px/1.3 var(--f-display);letter-spacing:.07em;text-transform:uppercase;color:var(--muted);text-align:left;padding:6px 8px;border-bottom:1.5px solid var(--line);white-space:nowrap}
+.kb-t td{padding:7px 8px;border-bottom:1px solid var(--grid);vertical-align:top}
+.kb-t tr:last-child td{border-bottom:none}
+.kb-t td.en{font-weight:600}
+.kb-t td:first-child{white-space:nowrap}
+.kb-text{font-size:17px}
+.kb-empty{padding:20px 0}
+mark{background:var(--hl);color:inherit;border-radius:3px;padding:0 1px}
+@media (max-width:600px){.kb-glab{min-width:0;width:100%;padding-bottom:0}.kb-ctl{padding:12px}}
+
 /* рух */
 @keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-5px)}40%{transform:translateX(5px)}60%{transform:translateX(-3px)}80%{transform:translateX(3px)}}
 @keyframes pop{0%{transform:scale(.5);opacity:0}100%{transform:scale(1);opacity:1}}
@@ -324,6 +378,7 @@ span.fw:hover{border-color:transparent}
       <p class="brand">Зошит з англійської<small id="brandSub">Вправи з перевіркою: читання, слова, граматика</small></p>
       <div class="prog" id="progBox" aria-live="polite" hidden><span>Виконано <b id="pd">0</b> з <span id="pt">0</span></span><span class="bar"><i id="pb"></i></span></div>
       <button class="reset" id="rs" type="button" hidden>Почати заново</button>
+      <div class="views" id="views" role="group" aria-label="Розділ" hidden><button type="button" id="vWork" aria-pressed="true">Зошит</button><button type="button" id="vKb" aria-pressed="false">База знань</button></div>
       <div class="who" id="who" hidden><span class="sync" id="sync" hidden></span><b id="whoName"></b><button class="reset" id="logout" type="button">Вийти</button></div>
     </div>
     <div class="confirm" id="cf" hidden>
@@ -348,6 +403,19 @@ span.fw:hover{border-color:transparent}
     </form>
   </section>
   <section id="tch" hidden></section>
+  <section class="kb" id="kb" hidden>
+    <div class="kb-h"><h1>База знань</h1><p>Правила, слова й фрази з уроків. Обери теми й тип карток або знайди слово. Натисни на англійське слово, щоб почути його.</p></div>
+    <div class="kb-ctl">
+      <div class="kb-row">
+        <input id="kbq" type="search" placeholder="Пошук: dog, множина, [ай]…" aria-label="Пошук у базі знань" autocomplete="off" spellcheck="false">
+        <label class="kb-sort">Сортувати <select id="kbsort"><option value="lesson">як на уроці</option><option value="topic">теми за алфавітом</option><option value="title">картки за алфавітом</option></select></label>
+      </div>
+      <div class="kb-topics" id="kbtopics"></div>
+      <div class="kb-kinds" id="kbkinds"></div>
+      <div class="kb-meta"><span id="kbcount" aria-live="polite"></span><button class="reset" id="kbreset" type="button" hidden>Скинути фільтри</button></div>
+    </div>
+    <div id="kblist"></div>
+  </section>
   <div class="banner" id="viewBanner" hidden></div>
   <section class="written" id="written" hidden></section>
   <div class="sheet" id="sheet" hidden>
@@ -1237,11 +1305,16 @@ let TOKEN = null;
 const $ = id => document.getElementById(id);
 const UI = {
   boot:$('boot'), login:$('login'), tch:$('tch'), banner:$('viewBanner'), written:$('written'), sheet:$('sheet'),
-  prog:$('progBox'), nav:$('nav'), rs:$('rs'), who:$('who'), whoName:$('whoName'), sync:$('sync'), sub:$('brandSub'), cf:$('cf')
+  prog:$('progBox'), nav:$('nav'), rs:$('rs'), who:$('who'), whoName:$('whoName'), sync:$('sync'), sub:$('brandSub'), cf:$('cf'),
+  kb:$('kb'), views:$('views'), vWork:$('vWork'), vKb:$('vKb')
 };
 const BRAND_SUB = UI.sub.textContent;
 function show(parts){
-  ['boot','login','tch','banner','written','sheet','prog','nav','rs','who','sync'].forEach(n => { UI[n].hidden = !parts.includes(n); });
+  ['boot','login','tch','banner','written','sheet','prog','nav','rs','who','sync','kb'].forEach(n => { UI[n].hidden = !parts.includes(n); });
+  UI.views.hidden = !['student','teacher','view','demo'].includes(MODE);
+  UI.vWork.textContent = MODE === 'student' ? 'Зошит' : 'Учні';
+  UI.vWork.setAttribute('aria-pressed', String(!parts.includes('kb')));
+  UI.vKb.setAttribute('aria-pressed', String(parts.includes('kb')));
   UI.cf.hidden = true;
   const intro = UI.sheet.querySelector('.intro'); if (intro) intro.hidden = MODE !== 'student';
 }
@@ -1455,6 +1528,260 @@ function backToRoster(){
   rerenderAll();
   enterTeacher();
 }
+
+
+/* ---------- база знань ---------- */
+const KB_KINDS = [['rule','Правила'],['words','Слова'],['phrases','Фрази'],['examples','Приклади'],['text','Тексти']];
+const KB_KIND_ONE = { rule:'Правило', words:'Слова', phrases:'Фрази', examples:'Приклади', text:'Текст' };
+const KB_GROUPS = [
+  ['Звуки й читання', ['golosni','pryholosni','zakrytyi','vidkrytyi']],
+  ['Лексика', ['pryvitannia','chysla','slova','tvaryny']],
+  ['Граматика', ['zaimennyky','to-be','to-have','mnozhyna']],
+  ['Тексти', ['chytannia']]
+];
+const R2 = (cols, rows, say, extra) => Object.assign({ t:'rows', cols, rows, say: say || [] }, extra || {});
+const KB = [
+  { topic:'golosni', kind:'rule', title:'Голосні літери', blocks:[
+    { t:'p', html:'В англійській шість голосних: <b>a, e, i, o, u, y</b>. Як саме звучить голосна, залежить від типу складу: закритого чи відкритого.' } ]},
+  { topic:'golosni', kind:'rule', title:'Звуки голосних', blocks:[
+    R2(['Літера','Звуки'], [['a','[е]'],['e','[е]'],['i','[і], [ай]'],['u','[а] (на початку слова), [у], [ю]'],['o','[о], [оу]'],['y','[і], [ай]'],['ae','[е]'],['ee','[і]'],['oo','[у]']]) ]},
+
+  { topic:'pryholosni', kind:'rule', title:'Приголосні літери', blocks:[
+    { t:'p', html:'<b>b, c, d, f, g, h, j, k, l, m, n, p, q, r, s, t, v, w, x, y, z</b>' },
+    R2(['Літера','Звук'], [['b','[б]'],['c','[к] на початку слова, [с] інколи в середині'],['d','[д]'],['f','[ф]'],['g','[дж], [ґ]'],['h','[х]'],['j','[дж]'],['k','[к]'],['l','[л]'],['m','[м]'],['n','[н]'],['p','[п]'],['q','[к], [к’ю]'],['r','[р]'],['s','[с]'],['t','[т]'],['v','[в]'],['w','[в]'],['x','[кс]'],['y','[й]'],['z','[з]']]),
+    { t:'note', html:'<b>y</b> буває і голосною ([і], [ай]), і приголосною ([й]), як у слові <b>yes</b>.' } ]},
+  { topic:'pryholosni', kind:'rule', title:'Буквосполучення th, sh, ch, ck', blocks:[
+    R2(['Буквосполучення','Звук','Приклад','Переклад'], [['th','[з/с]','think, math','думати, математика'],['sh','[ш]','shock','шок, здивування'],['ch','[ч]','chat','розмова, чат'],['ck','[к]','shock, rock','шок, камінь']], [2]) ]},
+  { topic:'pryholosni', kind:'rule', title:'Як читається c', blocks:[
+    R2(['Де стоїть','Звук','Приклад','Переклад'], [['на початку слова','[к]','cake, cute','пиріг, милий'],['в середині слова','[с]','rice, race','рис, гонка']], [2]),
+    { t:'note', html:'Зазвичай <b>c</b> читається [с] перед <b>e, i, y</b>.' } ]},
+
+  { topic:'zakrytyi', kind:'rule', title:'Закритий склад (2-й тип)', blocks:[
+    { t:'p', html:'Приголосна + голосна + приголосна (+ ще приголосна): <b>d + o + g</b>. Склад закінчується на приголосну, тому голосна звучить коротко.' } ]},
+  { topic:'zakrytyi', kind:'rule', title:'Голосні в закритому складі', blocks:[
+    R2(['Літера','Звук','Приклад','Переклад'], [['a','[е]','bag','рюкзак'],['e','[е]','net','сітка'],['i','[і]','kid','дитина'],['u','[а]','sun','сонце'],['o','[о]','dog','собака'],['y','[і]','gym','спортзал'],['ee','[і]','green, sweet, street','зелений, солодкий, вулиця'],['oo','[у]','book, cook','книга, готувати їсти']], [2]) ]},
+  { topic:'zakrytyi', kind:'words', title:'Приголосні в закритому складі: слова', blocks:[
+    R2(['Літера','Звук','Слово','Переклад'], [
+      ['b','[б]','bag','рюкзак'],['c','[к]','cat','кіт'],['d','[д]','dog, dig','собака, копати'],['f','[ф]','fish','риба'],['g','[дж], [ґ]','gym','спортзал'],
+      ['h','[х]','hill','гора, пагорб'],['j','[дж]','jam','варення'],['k','[к]','kid','дитина'],['l','[л]','lamp','лампа'],['m','[м]','mom, map','мама, мапа'],
+      ['n','[н]','net','сітка'],['p','[п]','pig','свиня'],['q','[к], [к’ю]','quiz','вікторина, загадка'],['r','[р]','rock','камінь, рок'],['s','[с]','Sam, sun','Сем, сонце'],
+      ['t','[т]','test, top','тест, верх'],['v','[в]','van','мікроавтобус'],['w','[в]','wish','бажання, хотіти'],['x','[кс]','box, six','коробка, шість'],['y','[й]','yes','так'],
+      ['z','[з]','zip, zebra','замок-блискавка, зебра'],['th','[с]','think, math','думати, математика'],['sh','[ш]','shock','шок, здивування'],['ch','[ч]','chat','розмова, чат'],['ck','[к]','shock','шок, здивування']], [2]) ]},
+
+  { topic:'vidkrytyi', kind:'rule', title:'Відкритий склад (1-й тип)', blocks:[
+    { t:'p', html:'Склад закінчується на голосну: <b>he</b> (приголосна + голосна) або <b>name</b> (приголосна + голосна + приголосна + голосна). Голосна звучить так, як називається в алфавіті, а <b>e</b> в кінці слова не читається.' } ]},
+  { topic:'vidkrytyi', kind:'rule', title:'Голосні у відкритому складі', blocks:[
+    R2(['Літера','Звук','Приклади','Переклад'], [['a','[ей]','name, cake, race','ім’я, пиріг, гонка'],['e','[і]','these, we, she','ці, ми, вона'],['i','[ай]','rice, life, like, hide','рис, життя, любити, ховати'],['u','[ю]','cube, cute, June','куб, милий, червень'],['o','[оу]','hope, note, bone','надія, нотатка, кістка'],['y','[ай]','type','тип, вид']], [2]) ]},
+  { topic:'vidkrytyi', kind:'examples', title:'Слова для тренування читання', blocks:[
+    R2(['Звук','Слова'], [['[ей]','name, cake, race, pace, lace, tape, lake'],['[і]','me, these, she, he, we, tee, sea'],['[ай]','rice, ice, life, like, hide, ride'],['[ай]','type, hype'],['[оу]','dove, love, hope, note, bone'],['[ю]','cube, nuke, cute, mute, June'],['змішані','rog, dig, gym, wape, cake, thor, ram, me, type, hog, burn, hype, bape, baby, pig, nuke']], [1]),
+    { t:'note', html:'<b>love</b> і <b>dove</b> — винятки: читаються [лав], [дав]. У змішаному ряду спершу визнач тип складу, потім читай.' } ]},
+
+  { topic:'pryvitannia', kind:'phrases', title:'Привітання', blocks:[
+    R2(['Фраза','Переклад'], [['Hello','привіт'],['Hi','привіт'],['Hi there','привітики'],['Good morning','добрий ранок'],['Good afternoon','добрий день'],['Good evening','добрий вечір']], [0]) ]},
+  { topic:'pryvitannia', kind:'phrases', title:'Як справи?', blocks:[
+    R2(['Фраза','Переклад'], [['What’s up?','Як справи? (неформально)'],['How are you doing?','Як справи? (формально)'],['Hope you are doing well.','Надіюсь, у тебе все добре.'],['Are you alright?','Чи все в тебе добре? / Ти ок?']], [0]) ]},
+  { topic:'pryvitannia', kind:'phrases', title:'Як відповісти, що все добре', blocks:[
+    R2(['Фраза','Переклад'], [['I am fine','у мене все добре'],['I am good','у мене все добре'],['I am doing well','у мене все добре']], [0]) ]},
+  { topic:'pryvitannia', kind:'phrases', title:'Прощання', blocks:[
+    R2(['Фраза','Переклад'], [['See you later','побачимось пізніше']], [0]) ]},
+
+  { topic:'chysla', kind:'words', title:'Числа 0–12', blocks:[
+    R2(['Число','Слово'], [['0','zero'],['1','one'],['2','two'],['3','three'],['4','four'],['5','five'],['6','six'],['7','seven'],['8','eight'],['9','nine'],['10','ten'],['11','eleven'],['12','twelve']], [1]) ]},
+  { topic:'chysla', kind:'rule', title:'13–19: число + teen', blocks:[
+    { t:'p', html:'До числа додаємо <b>-teen</b>: four → four<b>teen</b>. 11 (eleven) і 12 (twelve) мають власні назви.' },
+    R2(['Число','Слово'], [['13','thirteen'],['14','fourteen'],['15','fifteen'],['16','sixteen'],['17','seventeen'],['18','eighteen'],['19','nineteen']], [1]) ]},
+  { topic:'chysla', kind:'rule', title:'20–90: число + ty', blocks:[
+    { t:'p', html:'Десятки утворюються з <b>-ty</b>: six → six<b>ty</b>. Зверни увагу на <b>twen</b>ty, <b>thir</b>ty, <b>for</b>ty, <b>fif</b>ty, <b>eigh</b>ty.' },
+    R2(['Число','Слово'], [['20','twenty'],['30','thirty'],['40','forty'],['50','fifty'],['60','sixty'],['70','seventy'],['80','eighty'],['90','ninety']], [1]) ]},
+
+  { topic:'slova', kind:'words', title:'Слова з картинок', blocks:[
+    R2(['Слово','Переклад'], [['men','чоловіки'],['run','бігти'],['ball','м’яч'],['jump','стрибати'],['cup','кружка, кубок'],['home','дім'],['ring','кільце, перстень'],['land','земля'],['hills','гори, пагорби'],['strong','сильний'],['house','будинок']], [0]) ]},
+
+  { topic:'tvaryny', kind:'words', title:'Тварини', blocks:[
+    R2(['Слово','Переклад'], [['tiger','тигр'],['dog','собака'],['frog','жаба'],['horse','кінь'],['zebra','зебра'],['giraffe','жирафа'],['elephant','слон'],['mouse','миша'],['pig','свиня'],['rabbit','кролик']], [0]) ]},
+
+  { topic:'zaimennyky', kind:'rule', title:'Особові займенники', blocks:[
+    R2(['Особа','Однина','Множина'], [['1-а','I [ай] — я','We [ві] — ми'],['2-а','You [ю] — ти','You [ю] — ви'],['3-я','He [хі] — він; She [ші] — вона; It [іт] — воно, це','They [зей] — вони']]) ]},
+
+  { topic:'to-be', kind:'rule', title:'To be — бути', blocks:[
+    R2(['Займенник','To be'], [['I','am [ем]'],['You','are [а]'],['He / She / It','is [іс/із]'],['We','are'],['You','are'],['They','are']]),
+    { t:'note', html:'Для множини — завжди <b>are</b>.' } ]},
+  { topic:'to-be', kind:'examples', title:'Речення з to be', blocks:[
+    R2(['Англійською','Українською'], [['I am Illia.','Я — Ілля.'],['He is a student.','Він учень.'],['She is a teacher.','Вона вчитель.'],['I am a boy.','Я хлопчик.'],['I am lazy.','Я лінивий.'],['You are a friend.','Ти друг.'],['He is handsome.','Він красивий.'],['They are students.','Вони — учні.'],['We are sportsmen.','Ми спортсмени.'],['You are kind.','Ти добрий.'],['You are a pupil.','Ти учень.'],['You are Ukrainians.','Ви українці.']], [0]) ]},
+  { topic:'to-be', kind:'examples', title:'It is … (це …)', blocks:[
+    R2(['Англійською','Українською'], [['It is a dog.','Це собака.'],['It is a cat.','Це кіт.'],['It is a pencil.','Це олівець.'],['It is a car.','Це машина.'],['It is a bike.','Це велосипед.'],['It is a lamp.','Це лампа.'],['It is a window.','Це вікно.']], [0]) ]},
+
+  { topic:'to-have', kind:'rule', title:'To have — мати', blocks:[
+    R2(['Займенник','To have'], [['I','have'],['You','have'],['He / She / It','has'],['We','have'],['You','have'],['They','have']]),
+    { t:'note', html:'<b>has</b> — тільки з he, she, it. Для множини — завжди <b>have</b>.' } ]},
+  { topic:'to-have', kind:'examples', title:'Речення з to have', blocks:[
+    R2(['Англійською','Українською'], [['I have a dog.','Я маю собаку.'],['You have a dog.','Ти маєш собаку.'],['He has a dog.','Він має собаку.'],['We have a dog.','Ми маємо собаку.'],['They have a dog.','Вони мають собаку.'],['She has a rabbit.','Вона має кролика.'],['He has a lot of money.','Він має багато грошей.'],['They have a basketball.','Вони мають баскетбольний м’яч.'],['You have a computer.','Ти маєш комп’ютер.']], [0]) ]},
+
+  { topic:'mnozhyna', kind:'rule', title:'Множина: основне правило +s', blocks:[
+    { t:'p', html:'Більшість іменників просто отримують закінчення <b>-s</b>.' },
+    R2(['Однина','Множина','Переклад'], [['dog','dogs','пес — пси'],['cat','cats','кіт — коти'],['ball','balls','м’яч — м’ячі'],['student','students','учень — учні']], [0,1]) ]},
+  { topic:'mnozhyna', kind:'rule', title:'Після -s, -ss, -sh, -ch, -x, -z: +es', blocks:[
+    { t:'p', html:'Додаємо <b>-es</b>, щоб слово було зручно вимовляти.' },
+    R2(['Однина','Множина','Переклад'], [['bus','buses','автобус — автобуси'],['class','classes','урок — уроки'],['wish','wishes','бажання — бажання'],['match','matches','матч — матчі'],['box','boxes','коробка — коробки']], [0,1]) ]},
+  { topic:'mnozhyna', kind:'rule', title:'Слова на -y', blocks:[
+    { t:'p', html:'Перед <b>-y</b> приголосна — міняємо <b>y → ies</b>. Перед <b>-y</b> голосна — просто <b>+s</b>.' },
+    R2(['Однина','Множина','Переклад'], [['baby','babies','немовля — немовлята'],['city','cities','місто — міста'],['boy','boys','хлопчик — хлопчики'],['day','days','день — дні']], [0,1]) ]},
+  { topic:'mnozhyna', kind:'rule', title:'Слова на -f / -fe', blocks:[
+    { t:'p', html:'Міняємо <b>f → ves</b>.' },
+    R2(['Однина','Множина','Переклад'], [['wolf','wolves','вовк — вовки'],['life','lives','життя — життя'],['leaf','leaves','листок — листя']], [0,1]) ]},
+  { topic:'mnozhyna', kind:'words', title:'Неправильна множина', blocks:[
+    { t:'p', html:'Ці слова змінюються повністю, їх треба запам’ятати.' },
+    R2(['Однина','Множина','Переклад'], [['man','men','чоловік — чоловіки'],['woman','women','жінка — жінки'],['child','children','дитина — діти'],['tooth','teeth','зуб — зуби'],['foot','feet','стопа — стопи'],['mouse','mice','миша — миші'],['person','people','людина — люди']], [0,1]) ]},
+  { topic:'mnozhyna', kind:'words', title:'Слова, що не змінюються', blocks:[
+    { t:'p', html:'Однакові в однині й множині.' },
+    R2(['Однина','Множина','Переклад'], [['fish','fish','риба — риби'],['sheep','sheep','вівця — вівці'],['deer','deer','олень — олені']], [0,1]) ]},
+
+  { topic:'chytannia', kind:'text', title:'Текст 1', blocks:[ { t:'text', text:T1 } ]},
+  { topic:'chytannia', kind:'text', title:'Текст 2', blocks:[ { t:'text', text:T2 } ]},
+  { topic:'chytannia', kind:'text', title:'Текст 3', blocks:[ { t:'text', text:T3 } ]}
+];
+KB.forEach((e, i) => { e.i = i; });
+
+const KB_LS = 'zoshyt-kb-v1';
+const KBS = { q:'', topics:[], kind:'all', sort:'lesson' };
+try { Object.assign(KBS, JSON.parse(localStorage.getItem(KB_LS) || '{}')); } catch(e){}
+const kbSave = () => { try { localStorage.setItem(KB_LS, JSON.stringify(KBS)); } catch(e){} };
+const kn = s => String(s || '').toLowerCase().replace(/[’‘`ʼ]/g, "'").replace(/ё/g, 'е');
+const stripTags = s => String(s || '').replace(/<[^>]+>/g, '');
+const secById = id => SEC.find(s => s.id === id);
+const secNum = id => SEC.findIndex(s => s.id === id) + 1;
+
+function hl(str, q){
+  str = String(str);
+  if (!q) return [str];
+  const low = kn(str), out = []; let i = 0, j;
+  while ((j = low.indexOf(q, i)) !== -1){ if (j > i) out.push(str.slice(i, j)); out.push(h('mark', {}, str.slice(j, j + q.length))); i = j + q.length; }
+  if (i < str.length) out.push(str.slice(i));
+  return out;
+}
+function kbMatch(e, q){
+  if (!q) return { rows:null };
+  const sec = secById(e.topic);
+  const head = kn([e.title, sec ? sec.title : '', KB_KIND_ONE[e.kind]].concat(e.blocks.map(b => b.t === 'p' || b.t === 'note' ? stripTags(b.html) : (b.t === 'text' ? b.text : ''))).join(' '));
+  if (head.includes(q)) return { rows:null };
+  const rows = e.blocks.map(b => b.t === 'rows' ? b.rows.map(r => kn(r.join(' ')).includes(q)) : null);
+  return rows.some(r => r && r.some(Boolean)) ? { rows } : null;
+}
+
+const kbList = $('kblist'), kbQ = $('kbq'), kbSort = $('kbsort'), kbTopics = $('kbtopics'), kbKinds = $('kbkinds'), kbCount = $('kbcount');
+function kbControls(){
+  kbQ.value = KBS.q; kbSort.value = KBS.sort;
+  kbTopics.replaceChildren(...KB_GROUPS.map(([label, ids]) => {
+    const allOn = ids.every(id => KBS.topics.includes(id));
+    return h('div', { class:'kb-grp' },
+      h('button', { class:'kb-glab', type:'button', 'aria-pressed': String(allOn), title:'Обрати всю групу', onclick:() => {
+        KBS.topics = allOn ? KBS.topics.filter(t => !ids.includes(t)) : Array.from(new Set(KBS.topics.concat(ids)));
+        kbSave(); renderKB(); } }, label),
+      ...ids.map(id => { const s = secById(id), on = KBS.topics.includes(id);
+        return h('button', { class:'fchip', type:'button', 'aria-pressed': String(on), onclick:() => {
+          KBS.topics = on ? KBS.topics.filter(t => t !== id) : KBS.topics.concat(id); kbSave(); renderKB(); } },
+          h('span', { class:'n' }, String(secNum(id))), s.short); }));
+  }));
+  kbKinds.replaceChildren(...[['all','Усе']].concat(KB_KINDS).map(([k, label]) =>
+    h('button', { class:'fchip', type:'button', 'aria-pressed': String(KBS.kind === k), onclick:() => { KBS.kind = k; kbSave(); renderKB(); } }, label)));
+}
+function kbCell(text, speakable, q){
+  if (speakable && CAN_SPEAK) return h('button', { class:'sw', type:'button', title:'Послухати', onclick:ev => speak(String(text).replace(/[—–]/g, ','), ev.currentTarget) }, ...hl(text, q));
+  return h('span', {}, ...hl(text, q));
+}
+function kbCard(e, m, q, flat){
+  const sec = secById(e.topic);
+  const tags = h('div', { class:'kb-tags' }, h('span', { class:'tag k-' + e.kind }, KB_KIND_ONE[e.kind]), flat ? h('span', { class:'tag' }, secNum(e.topic) + ' · ' + sec.short) : null);
+  const card = h('article', { class:'kb-card' }, h('div', { class:'kb-card-h' }, h('h3', {}, ...hl(e.title, q)), tags));
+  e.blocks.forEach((b, bi) => {
+    if (b.t === 'p') card.append(h('p', { html:b.html }));
+    else if (b.t === 'note') card.append(h('p', { class:'kb-note', html:b.html }));
+    else if (b.t === 'text'){
+      const box = h('div', { class:'rtext kb-text', lang:'en' });
+      b.text.split('\n\n').forEach(par => {
+        const p = h('p');
+        par.split(/([A-Za-z']+)/).forEach((part, z) => {
+          if (z % 2 === 0){ if (part) p.append(part); return; }
+          p.append(CAN_SPEAK ? h('button', { class:'sw', type:'button', onclick:ev => speak(part, ev.currentTarget) }, part) : part);
+        });
+        box.append(p);
+      });
+      if (CAN_SPEAK){
+        const lbl = h('span', {}, 'Слухати текст');
+        const btn = h('button', { class:'btn', type:'button' }, speakerIcon(), lbl);
+        btn.addEventListener('click', () => {
+          if (btn.classList.contains('talk')){ try { speechSynthesis.cancel(); } catch(err){} return; }
+          lbl.textContent = 'Стоп';
+          speak(b.text.replace(/\n\n/g, ' ').replace(/—/g, ','), btn, () => { lbl.textContent = 'Слухати текст'; });
+        });
+        card.append(h('div', {}, btn));
+      }
+      card.append(box);
+    }
+    else if (b.t === 'rows'){
+      const keep = m.rows && m.rows[bi];
+      const tb = h('tbody');
+      b.rows.forEach((r, ri) => {
+        if (keep && !keep[ri]) return;
+        tb.append(h('tr', {}, ...r.map((c, ci) => h('td', { class: b.say.includes(ci) ? 'en' : null, lang: b.say.includes(ci) ? 'en' : null }, kbCell(c, b.say.includes(ci), q)))));
+      });
+      if (tb.childNodes.length) card.append(h('div', { class:'kb-tw' }, h('table', { class:'kb-t' }, h('thead', {}, h('tr', {}, ...b.cols.map(c => h('th', { scope:'col' }, c)))), tb)));
+    }
+  });
+  return card;
+}
+function renderKB(){
+  kbControls();
+  const q = kn(KBS.q.trim());
+  const shown = [];
+  KB.forEach(e => {
+    if (KBS.topics.length && !KBS.topics.includes(e.topic)) return;
+    if (KBS.kind !== 'all' && e.kind !== KBS.kind) return;
+    const m = kbMatch(e, q); if (m) shown.push({ e, m });
+  });
+  kbCount.textContent = shown.length ? `Показано ${shown.length} з ${KB.length} карток` : '';
+  $('kbreset').hidden = !(KBS.q || KBS.topics.length || KBS.kind !== 'all');
+  if (!shown.length){ kbList.replaceChildren(h('p', { class:'empty-note kb-empty' }, 'Нічого не знайдено. Спробуй інше слово або скинь фільтри.')); return; }
+  if (KBS.sort === 'title'){
+    shown.sort((a, b) => a.e.title.localeCompare(b.e.title, 'uk'));
+    kbList.replaceChildren(h('div', { class:'kb-cards' }, ...shown.map(x => kbCard(x.e, x.m, q, true))));
+    return;
+  }
+  let order = SEC.map(s => s.id);
+  if (KBS.sort === 'topic') order = order.slice().sort((a, b) => secById(a).title.localeCompare(secById(b).title, 'uk'));
+  const out = [];
+  order.forEach(id => {
+    const items = shown.filter(x => x.e.topic === id); if (!items.length) return;
+    const sec = secById(id);
+    out.push(h('section', { class:'kb-sec' },
+      h('div', { class:'kb-sec-h' }, h('h2', {}, h('span', { class:'n' }, String(secNum(id))), sec.title),
+        h('button', { class:'btn quiet', type:'button', onclick:() => goExercises(id) }, MODE === 'student' ? 'До вправ →' : 'Показати вправи →')),
+      h('div', { class:'kb-cards' }, ...items.map(x => kbCard(x.e, x.m, q, false)))));
+  });
+  kbList.replaceChildren(...out);
+}
+let kbT = null;
+kbQ.addEventListener('input', () => { KBS.q = kbQ.value; kbSave(); clearTimeout(kbT); kbT = setTimeout(renderKB, 150); });
+kbSort.addEventListener('change', () => { KBS.sort = kbSort.value; kbSave(); renderKB(); });
+$('kbreset').addEventListener('click', () => { KBS.q = ''; KBS.topics = []; KBS.kind = 'all'; kbSave(); renderKB(); });
+
+function openKB(){
+  const parts = ['kb','who']; if (MODE === 'student') parts.push('sync');
+  show(parts); renderKB(); window.scrollTo({ top:0 });
+}
+function goExercises(id){
+  if (MODE === 'student') show(['sheet','prog','nav','rs','who','sync']);
+  else openDemo();
+  const el = document.getElementById(id);
+  if (el) setTimeout(() => el.scrollIntoView({ block:'start', behavior: RM ? 'auto' : 'smooth' }), 40);
+}
+UI.vKb.addEventListener('click', openKB);
+UI.vWork.addEventListener('click', () => {
+  if (MODE === 'student') show(['sheet','prog','nav','rs','who','sync']);
+  else if (MODE === 'teacher') show(['tch','who']);
+  else backToRoster();
+  window.scrollTo({ top:0 });
+});
 
 /* ---------- старт ---------- */
 async function initAuth(){
